@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http'
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http'
 import { Observable } from 'rxjs';
 
 
@@ -13,14 +13,29 @@ export class UsersService {
   constructor(private http:HttpClient) { }
 
   loginUser(email: string, password: string) :Observable<any>{
-    const url = `${this.apiurl}/login`;
-    const body = { email:email, password:password };
+    const url = `${this.apiurl}account/login`;
+    const body = {"userNameOrEmailAddress":email, "password":password,"rememberMe": true };
     return this.http.post<any>(url, body);
 }
+getToken(email:any,password:any):Observable<any>
+{
+  const url ='https://localhost:44354/connect/token';
+  const body = new HttpParams()
+    .set('username', email)
+    .set('password', password)
+    .set('grant_type', 'password')
+    .set('client_id', 'SplitwiseAbp_App')
+    .set('scope', 'openid offline_access SplitwiseAbp');
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded'
+  });
 
+  return this.http.post<any>(url,body.toString(),{headers});
+
+}
 registerUser(name:string,email:string,password:string) : Observable<any>{
   const url=`${this.apiurl}account/register`;
-  const body= {"userName":name,"emailAddress":email,"password":password,"appName":"SplitwiseAbp"};
+  const body= {"userName":name,"emailAddress":email,"password":password,"grant_type":"password","appName":"SplitwiseAbp"};
   return this.http.post<any>(url,body);
 }
 createGroup(name:any,description:any):Observable<any>
