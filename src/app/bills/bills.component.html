@@ -1,0 +1,17 @@
+<p>bills works!</p>
+
+<h2>List of Bills</h2>
+<ul>
+    <li *ngFor="let bill of data">
+      {{ bill.name }} (ID: {{ bill.id }})
+      <button (click)="downloadBill(bill.id)">Download</button>
+    </li>
+  </ul>
+
+<div>
+    <input type="file" (change)="onSelected($event)" />
+    <button (click)="uploadFile()">Upload Bill</button>
+    
+  </div>
+  
+  <button (click)="downloadBill(1)">Download Bill</button> <!-- Replace '1' with the actual bill ID -->

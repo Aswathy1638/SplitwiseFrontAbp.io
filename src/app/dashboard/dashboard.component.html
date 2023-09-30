@@ -1,0 +1,27 @@
+<app-home></app-home>
+<div class="dashboard">
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <p class="title">DashBoard</p>
+    </form>
+  </nav>
+  <ul class="nav nav-tabs" id="myTabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="balance-tab" data-toggle="tab" role="tab" aria-controls="balance" aria-selected="true" (click)="getBalance()">Total Balance</a>
+      </li>
+    <li class="nav-item" style="margin-left: 0px;">
+        <a class="nav-link" id="owe-tab" data-toggle="tab"  role="tab" aria-controls="owe" aria-selected="true" (click)="getOweAmount()">You Owe</a>
+      </li>
+      <li class="nav-item" style="margin-left: 0px;">
+        <a class="nav-link" id="owed-tab" data-toggle="tab"  role="tab" aria-controls="owed" aria-selected="true" (click)="getOwedAmount()">You are Owed </a>
+      </li>
+  </ul>
+  <div class="tab-content" id="myTabsContent">
+    <div class="tab-pane fade show active" id="balance" role="tabpanel" aria-labelledby="balance-tab">
+        My balance is {{balance}}
+      </div>
+    <div class="tab-pane fade show active" id="owe" role="tabpanel" aria-labelledby="owe-tab">You owe {{oweAmount}}</div>
+    <div class="tab-pane fade show active" id="owed" role="tabpanel" aria-labelledby="owed-tab">You are owed {{owedAmount}}</div>
+    </div>
+  </div>
+  

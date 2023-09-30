@@ -1,0 +1,103 @@
+<app-home></app-home>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<div class="group">
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <p class="title" (click)="getGroups()">Group</p>
+            <i class='fas fa-users btn btn-primary' draggable="true" style="margin-top: -87px;margin-left: 970px;margin-right: 10px;"(click)="toggleExpenseForm()"></i>
+             <i class='fas fa-user-plus btn btn-primary' style="margin-top: -87px; " (click)="toggleUserForm()"></i>
+        </form>
+        </nav>
+        <table style="margin-left: 150px; "class="table">
+            <thead class="head">
+                <tr style="margin-left: 100px;">
+                    <th>Group Id</th>
+                    <th>Group Name</th>
+                    <th>Group Description</th>
+                    <th>Created On</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="margin-left: 100px;" *ngFor="let groups of group" (click)="getMembers(groups.id)">
+                    <td>{{groups.id}}</td>
+                    <td>{{ groups.name }}</td>
+                    <td>{{ groups.description }}</td>
+                    <td>{{ groups.createdDate }}</td>
+                 </tr>
+
+           
+            </tbody>
+        </table>
+        <form *ngIf="showGroupForm" [formGroup]="groupForm" (submit)="onSubmit()">
+            <div class="form-group">
+                <input type="text" class="form-control" id="form2" placeholder="Enter Group Name" formControlName="Name">
+              </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="form1" placeholder="Enter Group Description" formControlName="Description">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;    margin-left: 398px">Submit</button>
+            </div>
+            
+          </form>
+          <form *ngIf="showUserForm" [formGroup]="userForm" (submit)="addUserToGroup()">
+            <!-- <div class="form-group">
+                <input type="text" class="form-control" id="form3" placeholder="Enter Group Name" formControlName="Name">
+              </div> -->
+            <!-- <div class="form-group">
+              <input type="text" class="form-control" id="form4" placeholder="Enter Email Address" formControlName="Email">
+            </div> -->
+            <div class="form-group">
+              <select class="form-control" id="form3" formControlName="Name" >
+                <option value="" disabled selected >Select Group</option>
+                <option *ngFor="let group of group" [value]="group.name">{{ group.name }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <div *ngIf="showUserForm && userForm.get('Name')?.value"> <!-- Add ngIf to conditionally display the checkboxes when a group is selected -->
+                <div *ngFor="let user of userList; let i = index" formArrayName="selectedUsers">
+                  <label>
+                    <input type="checkbox" [formControlName]="i"> {{ user.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;    margin-left: 398px" >Submit</button>
+            </div>
+            <div *ngIf="userAdded">
+              <div class="alert alert-success">
+                User added successfully!
+              </div>
+            </div>
+            
+          </form>
+
+          <form *ngIf="showUsers" style="margin-left: 350px;" >
+            <div class="user-list-card">
+              <div class="card border-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header" style="font-size: larger;">Users</div>
+                <div class="card-body text-primary">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"> <ul>
+                    <li *ngFor="let user of users">
+                      <a  (click)=" getBalDetails(user.id)">{{ user.name }}
+                        
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <form style="margin-bottom: -56px;margin-top: -88px;margin-left: 330px;border: 10px;background-color: bisque;padding: 14px;width: 163px;
+    border-radius: 19px;" *ngIf="showBal"  >
+                You Owe  {{ selectedUserName }} {{value.value?.owe}} <br>
+                {{ selectedUserName }} Owes You {{value.value?.owed}}
+                
+              </form>
+              
+              
+          

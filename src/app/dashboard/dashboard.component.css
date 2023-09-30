@@ -1,0 +1,40 @@
+.navbar{
+    background-color: rgb(240, 240, 240);
+    margin-left: 225px;
+    padding: 25px;
+    height: 12px;
+    margin-top: 3px;
+}
+.title{
+    margin-top: -16px;
+    margin-left: 450px;
+    font-weight: 500;
+    font-size: 24px;
+}
+.nav-item{
+    background-color: rgb(240, 240, 240);
+    margin-left: 225px;
+    padding: 25px;
+    height: 12px;
+    margin-top: 3px;
+}
+
+.nav-link{
+    padding: 10px;
+}
+
+.nav-item {
+    background-color: rgb(240, 240, 240);
+    margin-left: 235px;
+    padding: 5px;
+    height: 52px;
+    margin-top: -4px;
+}
+.tab-content{
+
+    margin-left: 235px;
+    padding: 5px;
+    height: 52px;
+    margin-top: -4px;
+}
+  
