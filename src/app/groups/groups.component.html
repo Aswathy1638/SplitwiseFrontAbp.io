@@ -21,10 +21,11 @@
             </thead>
             <tbody>
                 <tr style="margin-left: 100px;" *ngFor="let groups of group" (click)="getMembers(groups.id)">
-                    <td>{{groups.id}}</td>
+                  {{groups}} 
+                  <!-- <td>{{groups.userId}}</td> -->
                     <td>{{ groups.name }}</td>
                     <td>{{ groups.description }}</td>
-                    <td>{{ groups.createdDate }}</td>
+                    <td>{{ groups.creationTime }}</td>
                  </tr>
 
            

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {UsersService} from '../services/users.service'
-import { FormArray, FormBuilder ,FormGroup,Validators} from '@angular/forms';
+import { FormArray, FormBuilder ,FormGroup,Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { ExpenseService } from '../services/expense.service';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-groups',
@@ -12,7 +13,7 @@ import { ExpenseService } from '../services/expense.service';
 export class GroupsComponent implements OnInit {
   name:any;
   description:any;
-  group!: any;
+  group: any=[];
   groupForm!: FormGroup;
   userForm!: FormGroup;
   showUserForm: boolean = false;
@@ -25,8 +26,7 @@ export class GroupsComponent implements OnInit {
   selectedGroupId:any;
   value: any=[];
   showBal: boolean=false;
-  //lasttt
-
+ 
   selectedUserName!: string;
 
   
@@ -58,16 +58,22 @@ export class GroupsComponent implements OnInit {
     
    }
   getGroups(){
-    const userId = localStorage.getItem('userId');
-    this.userService.getGroups(userId).subscribe(
-      (res)=>{
-        this.group=res;
-        console.log(res,"groups");
-      },
-      (error)=>{
-        console.log(error);
+     const token = localStorage.getItem("authorizationTokenAbp");
+     if(token){
+      const decodedToken: any = jwt_decode(token);
+      console.log(decodedToken,"is the");
+      const userId = decodedToken.sub;
+      console.log("The userId id",userId);
+      this.userService.getGroups(userId).subscribe(
+        (res: any)=>{
+          this.group=res.items;
+          console.log(res,"groups");
+        },
+        (error)=>{
+          console.log(error);
+        }
+        );
       }
-    );
   }
   onSubmit(){
 
@@ -89,6 +95,7 @@ export class GroupsComponent implements OnInit {
     );
   
    }
+   
 
    addUserToGroup(){
     const groupname =this.userForm.get('Name')?.value;
@@ -189,4 +196,9 @@ export class GroupsComponent implements OnInit {
     );
   }
 
+
+  
+
 }
+
+

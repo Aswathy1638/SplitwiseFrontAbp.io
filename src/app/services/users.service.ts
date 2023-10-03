@@ -49,7 +49,7 @@ const httpOptions = {
     'Authorization': `Bearer ${token}`
   })
 };
-  const url=`${this.apiurl}/group`;
+  const url=`${this.apiurl}app/group`;
   const body={Name: name , Description: description  };
   return   this.http.post<any>(url,body ,httpOptions);
 }
@@ -57,10 +57,10 @@ const httpOptions = {
 getGroups(userId:any)
 {
   
-  const url = `${this.apiurl}/user/${userId}/groups`;
+  const url = `${this.apiurl}app/custom-user-group/groups/${userId}`;
   return this.http.get(url);
 }
-addUser(groupname:any,email:string[])
+addUser(groupId:any,userId:any[])
 {
   const token =localStorage.getItem('jwtToken');
   const httpOptions ={
@@ -71,10 +71,10 @@ addUser(groupname:any,email:string[])
       }
     )
   };
-  const url = `${this.apiurl}/group/users?groupname=${groupname}`;
-  console.log(email,"from");
+  const url = `${this.apiurl}app/user-group`;
+  console.log(groupId,"from");
 
-  const body= email;
+  const body={"userId":userId,"groupId":groupId};
   console.log(body,"DFd");
   return this.http.post<any>(url,body,httpOptions);
 }
